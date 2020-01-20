@@ -1,7 +1,7 @@
 <?php
 
 
-namespace domain;
+namespace Domain;
 
 
 class Country

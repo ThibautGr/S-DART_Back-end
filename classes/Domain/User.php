@@ -1,5 +1,5 @@
 <?php
-namespace domain;
+namespace Domain;
 
 class User
 {
@@ -8,9 +8,7 @@ class User
     public $lastName;
     public $pseudo;
     public$description;
-    public $skill3d;
-    public $skillGraphique;
-    public $skillDigital;
+    public $artPratice;
     public $levelAdminUser;
     public $mail;
     public $entreprise;
@@ -21,9 +19,7 @@ class User
                                 $lastName,
                                 $pseudo,
                                 $description,
-                                $skill3d,
-                                $skillGraphique,
-                                $skillDigital,
+                                $artPratice,
                                 $levelAdminUser,
                                 $mail,
                                 $entreprise,
@@ -36,9 +32,7 @@ class User
         $this->  lastName = $lastName;
         $this-> pseudo = $pseudo;
         $this-> description = $description;
-        $this-> skill3d = $skill3d;
-        $this-> skillGraphique = $skillGraphique;
-        $this->skillDigital = $skillDigital ;
+        $this->artPratice = $artPratice;
         $this-> levelAdminUser= $levelAdminUser;
         $this-> mail = $mail;
         $this-> entreprise = $entreprise;
