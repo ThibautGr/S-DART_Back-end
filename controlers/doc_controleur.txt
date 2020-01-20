@@ -1,0 +1,2 @@
+toute la mécanique d'affichage est dedans, si on à le droits ou non d'afficher dans la vue à quel utilisateur, c'est la ou gères les sessions, 
+si on est utilisateur/simple visiteur / adminstrateur

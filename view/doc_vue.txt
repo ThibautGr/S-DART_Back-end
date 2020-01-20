@@ -1,0 +1,2 @@
+Dans ce fichier, ne sera contenu que des fichies qui seront charger de l'affichage,  
+on pourra y trouver des boucles qui parcouront renvoyer par le contrôleurs pour les listes ou les messages

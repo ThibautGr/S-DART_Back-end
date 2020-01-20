@@ -1,0 +1,1 @@
+Dans ce fichier on trouver uniquement les requetes SQL dans des fichier php qui ce chargeront de transmettres les informations aux controlleurs
