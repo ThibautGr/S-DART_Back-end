@@ -13,7 +13,7 @@ class DAOusers extends DAObase
 
     public function getUserConected($pseudo, $password){
         $user = null;
-        $req = $this->bdd->prepare("SELECT `idUser`,`firstName`,`lastName`,`pseudo`,`password`,`description`,`skill3d`,`skillGraphique`,`skillDigital`,`levelAdminUser`,`mail`,`entreprise`,`createdAt`,`idCountry` 
+        $req = $this->bdd->prepare("SELECT `idUser`,`firstName`,`lastName`,`pseudo`,`password`,`description`,`artPratice`,`levelAdminUser`,`mail`,`entreprise`,`createdAt`,`idCountry` 
                                               FROM `users` 
                                               WHERE `pseudo` = :pseudo and `password` = :password");
         $req->bindParam(":pseudo",$pseudo);
@@ -27,9 +27,7 @@ class DAOusers extends DAObase
                     $userDataConnect["pseudo"],
                     $userDataConnect["password"],
                     $userDataConnect["description"],
-                    $userDataConnect["skill3d"],
-                    $userDataConnect["skillGraphique"],
-                    $userDataConnect["skillDigital"],
+                    $userDataConnect["artPratice"],
                     $userDataConnect["levelAdminUser"],
                     $userDataConnect["mail"],
                     $userDataConnect["entreprise"],
