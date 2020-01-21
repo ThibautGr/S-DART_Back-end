@@ -39,4 +39,25 @@ class DAOusers extends DAObase
         $req->closeCursor();
         return $user;
     }
+public function insertUser(){
+    $req = $this->bdd->query("INSERT INTO users(idUser,firstName,lastName,pseudo,iconLink,password,description,artPratice,levelAdminUser,levelAdminUser,mail,entreprise,createdAt,idCountry)
+                                VALUE (null, :firstName, :lastName, :pseudo, :iconLink, :password, :description, :artPratice, :levelAdminUser, :levelAdminUser, :mail, :entreprise, :createdAt, :idCountry)
+                                ");
+    $req->bindParam(":firstName",$firstName);
+    $req->bindParam(":lastName",$lastName);
+    $req->bindParam(":pseudo",$pseudo);
+    $req->bindParam(":iconLink", $iconLink);
+    $req->bindParam(":password",$password);
+    $req->bindParam(":description",$description);
+    $req->bindParam(":artPratice",$artPratice);
+    $req->bindParam(":levelAdminUser",$levelAdminUser);
+    $req->bindParam(":levelAdminUser",$levelAdminUser);
+    $req->bindParam(":mail",$mail);
+    $req->bindParam(":entreprise",$entreprise);
+    $req->bindParam(":createdAt",$createdAt);
+    $req->bindParam(":idCountry",$idCountry);
+
+    $req->execute();
+}
+
 }
