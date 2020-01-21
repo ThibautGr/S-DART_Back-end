@@ -237,6 +237,17 @@ function passWordHAS2() {
     }
 }
 
+$('#userlevel').change(function(){
+    if($(this).val() === "3"){
+        ($("#entreprise").removeClass("d-none"));
+    }
+    if($(this).val() === "1"){
+        ($("#entreprise").addClass("d-none"));
+    }
+   if($(this).val() === "2"){
+        ($("#entreprise").addClass("d-none"));
+    }
+});
 /* essaie aborté avec le modificateur de class
 function passWordHAS() {
     var x = document.getElementById("passWord");
