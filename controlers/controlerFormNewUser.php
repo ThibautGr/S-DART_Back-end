@@ -1,60 +1,77 @@
 <?php
-
+/*
+idUser
+firstName $_SESSION['firstName'] = $_POST['firstName'];
+lastName $_SESSION['lastName'] = $_POST['lastName'];
+pseudo $_SESSION['password'] = $_POST['password'];
+iconLink
+password $_SESSION['password'] = $_POST[''password];
+description $_SESSION['description'] = $_POST['description'];
+artPratice
+levelAdminUser
+mail $_SESSION['mail'] = $_POST['mail'];
+entreprise $_SESSION['entreprise'] = $_POST['entreprise'];
+createdAt
+idCountry $_SESSION['idCountry'] = $_POST['idCountry'];
+ * */
 require "../init/autoloader.php";
 use DAO\DAOartType;
 use DAO\DAOcountry;
+use service\checkNewUser;
 use DAO\DAOusers;
-$confing = require "../init/config.inc";
+use Domain\User;
 require "../view/templateHeader.php";
+$confing = require "../init/config.inc";
+
+$validationError = [];
+
+$checkNewUser = new checkNewUser();
 $DAOartType = new DAOartType($confing);
 $DAOcountry = new DAOcountry($confing);
+$DAOuser = new DAOusers($confing);
 $typeArts = $DAOartType->getArtType();
 $countrys = $DAOcountry->getCountry();
 require "../view/pageInscription.php";
-/*
-if(){
-    $target_dir = "../img/profilUser/";
-    $target_file = $target_dir . basename($_FILES["pictureProfil"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
-    if(isset($_POST["submit"])) {
-        $check = getimagesize($_FILES["pictureProfil"]["tmp_name"]);
-        if($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
-            $uploadOk = 1;
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
-        }
-    }
-// Check if file already exists
-    if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
-// Check file size
-    if ($_FILES["pictureProfil"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-// Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-// Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-    } else {
-        if (move_uploaded_file($_FILES["pictureProfil"]["tmp_name"], $target_file)) {
-            echo "The file ". basename( $_FILES["pictureProfil"]["name"]). " has been uploaded.";
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-        }
-    }
-}
-*/
 require "../view/templateFooter.php";
+
+$firstName ="";
+$lastName ="";
+$pseudo = "";
+$iconLink = "";
+$password = "";
+$description = "";
+$artPratice = "";
+$levelAdminUser = "";
+$mail = "";
+$entreprise = "";
+$createdAt= "";
+$idCountry = "";
+
+
+if(!empty($_POST)){
+    $firstName = $_POST["firstName"];
+    $lastName =$_POST["lastName"];
+    $pseudo = $_POST["pseudo"];
+    $iconLink =$_POST["iconLink"];
+    $password = $_POST["password"];
+    $description =$_POST["description"];
+    $artPratice = $_POST["artPratice"];
+    $levelAdminUser = $_POST["levelAdminUser"];
+    $mail = $_POST["mail"];
+    $entreprise = $_POST["entreprise"];
+   // $createdAt= $_POST["createdAt"];
+    $idCountry = $_POST["idCountry"];
+    $user = new User(null, $firstName, $lastName, $pseudo, $iconLink, $password, $description, $artPratice,$levelAdminUser ,$mail ,$entreprise,null ,$idCountry);
+
+    $validationError = $checkNewUser->isValidUser($user);
+    if (empty($validationError)){
+        $DAOuser->insertUser($user);
+        $id = $DAOuser;
+        session_destroy();
+        $DAOuser->close();
+        header("Location: validation.php?=id") ;
+    }
+    var_dump($validationError);
+}
+
+
