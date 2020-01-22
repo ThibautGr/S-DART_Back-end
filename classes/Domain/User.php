@@ -7,7 +7,9 @@ class User
     public $firstName;
     public $lastName;
     public $pseudo;
-    public$description;
+    public $iconLink;
+    public $password;
+    public $description;
     public $artPratice;
     public $levelAdminUser;
     public $mail;
@@ -18,6 +20,8 @@ class User
                                 $firstName,
                                 $lastName,
                                 $pseudo,
+                                $iconLink,
+                                $password,
                                 $description,
                                 $artPratice,
                                 $levelAdminUser,
@@ -31,6 +35,8 @@ class User
         $this-> firstName = $firstName;
         $this->  lastName = $lastName;
         $this-> pseudo = $pseudo;
+        $this-> iconLink = $iconLink;
+        $this->password = $password;
         $this-> description = $description;
         $this->artPratice = $artPratice;
         $this-> levelAdminUser= $levelAdminUser;
