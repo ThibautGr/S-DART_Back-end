@@ -8,18 +8,27 @@
                     <hr>
                     <p class="mb-0">Un email vous sera envoyer à l'adresse que vous écrivez vérifié vos spam si vous ne le trouver pas desuite.</p>
                 </div>
-        <form  method="POST" action="controlerFormNewUser.php" enctype="multipart/form-data" class=" col-log p-5 m-3">
+        <form  action="controlerFormNewUser.php" method="post" enctype="multipart/form-data" class=" col-log p-5 m-3">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="firstName">firstName</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="firstName" name="firstName">
+                    <input type="text" value="<?php //echo $_SESSION['firstName'];?>" class="form-control" id="firstName" placeholder="firstName" name="firstName">
                 </div>
+                <?php
+                if(!empty($validationError["user.firstName"])){
+                    ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong><?= $validationError["user.firstName"] ?></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php } ?>
                 <div class="form-group col-md-6">
                     <label for="lastName">lastName</label>
                     <input type="lastName" class="form-control" id="lastName" placeholder="lastName" name="lastName">
                 </div>
             </div>
-            <form class=" col-log p-5 m-3">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="pseudo">pseudo</label>
@@ -28,7 +37,7 @@
                         <div class="form-group  col-md-6">
                             <label class="" for="inputGroupFile01">Your profil picture</label>
                                 <div class="custom-file ">
-                                    <input type="file" class="custom-file-input" name="pictureProfil" id="inputGroupFile01"
+                                    <input type="file" class="custom-file-input" name="iconLink" id="inputGroupFile01"
                                            aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label btn-primary btn" for="inputGroupFile01">Choose file</label>
                                 </div>
@@ -40,7 +49,7 @@
                         <?php foreach ($typeArts as $typeArt){ ?>
                     <div class=" form-check-inline form-check ">
                         <label class="form-check-label  " for="<?php $typeArt->name ?>">
-                        <input class="ArtPratiqué " type="checkbox" value="<?php echo $typeArt->name ?>" id="<?php echo $typeArt->name ?>">
+                        <input class="ArtPratiqué " name="artPratice[]" type="checkbox" value="<?php echo $typeArt->idTypeArt ?>" id="<?php echo $typeArt->name ?>">
                         </label>
                     </div>
                         <?php
@@ -101,8 +110,8 @@
             <div class="form-group ">
                 <label for="passWordConf">confirmation du Mots de passe: </label>
                 <div class="row roweyes">
-                    <input id="passWordConf" type="password" class="col-10 form-control text-left"  placeholder="password">
-                    <div class="col-2 btn-primary btn "  onclick="passWordHAS2()">
+                    <input id="passWordConf" type="password" class="col-10 form-control text-left" name="passwordtwo"  placeholder="password">
+                    <div class="col-2 btn-primary btn"  onclick="passWordHAS2()">
                         <div id="eyes2">
                             <i  class="far fa-eye hideAndShowEye2s"></i>
                         </div>
@@ -112,7 +121,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" value="submit" class="btn btn-primary">Sign in</button>
         </form>
     </div>
 </div>
