@@ -40,23 +40,29 @@ class DAOusers extends DAObase
         return $user;
     }
 public function insertUser($user){
-    $req = $this->bdd->query("INSERT INTO users(idUser,firstName,lastName,pseudo,iconLink,password,description,artPratice,levelAdminUser,levelAdminUser,mail,entreprise,createdAt,idCountry)
-                                VALUE (null, :firstName, :lastName, :pseudo, :iconLink, :password, :description, :artPratice, :levelAdminUser, :levelAdminUser, :mail, :entreprise, null, :idCountry)
+    $req = $this->bdd->prepare("INSERT INTO users(firstName, lastName, pseudo, iconLink, password, description, artPratice, levelAdminUser, mail, entreprise, idCountry)
+                                VALUE (:firstName, :lastName, :pseudo, :iconLink, :password, :description, :artPratice, :levelAdminUser, :mail, :entreprise, :idCountry)
                                 ");
-    $req->bindParam(":firstName",$firstName);
-    $req->bindParam(":lastName",$lastName);
-    $req->bindParam(":pseudo",$pseudo);
-    $req->bindParam(":iconLink", $iconLink);
-    $req->bindParam(":password",$password);
-    $req->bindParam(":description",$description);
-    $req->bindParam(":artPratice",$artPratice);
-    $req->bindParam(":levelAdminUser",$levelAdminUser);
-    $req->bindParam(":levelAdminUser",$levelAdminUser);
-    $req->bindParam(":mail",$mail);
-    $req->bindParam(":entreprise",$entreprise);
-    $req->bindParam(":idCountry",$idCountry);
+    $req->bindParam(":firstName",$user->firstName);
+    $req->bindParam(":lastName",$user->lastName);
+    $req->bindParam(":pseudo",$user->pseudo);
+    $req->bindParam(":iconLink", $user->iconLink);
+    $req->bindParam(":password",$user->password);
+    $req->bindParam(":description",$user->description);
+    $req->bindParam(":artPratice",$user->artPratice);
+    $req->bindParam(":levelAdminUser",$user->levelAdminUser);
+    $req->bindParam(":mail",$user->mail);
+    $req->bindParam(":entreprise",$user->entreprise);
+    $req->bindParam(":idCountry",$user->idCountry);
 
-    $req->execute();
+    if($req->execute()){
+        $req->closeCursor();
+        return"echo success a new uses are borne";
+    }
+    else{
+        $req->closeCursor();
+        echo "error fail to adding user";
+    }
 }
 
 }
