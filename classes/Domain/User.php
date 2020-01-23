@@ -32,17 +32,17 @@ class User
                                 )
     {
         $this->idUser = $idUser;
-        $this-> firstName = $firstName;
-        $this->  lastName = $lastName;
-        $this-> pseudo = $pseudo;
-        $this-> iconLink = $iconLink;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->pseudo = $pseudo;
+        $this->iconLink = $iconLink;
         $this->password = $password;
-        $this-> description = $description;
+        $this->description = $description;
         $this->artPratice = $artPratice;
-        $this-> levelAdminUser= $levelAdminUser;
-        $this-> mail = $mail;
-        $this-> entreprise = $entreprise;
-        $this->  createdAt = $createdAt;
+        $this->levelAdminUser= $levelAdminUser;
+        $this->mail = $mail;
+        $this->entreprise = $entreprise;
+        $this->createdAt = $createdAt;
         $this->idCountry = $idCountry;
     }
 }
