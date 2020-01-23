@@ -25,6 +25,9 @@ idCountry $_SESSION['idCountry'] = $_POST['idCountry'];
 
     public function isValidUser($user)
     {
+        $target_dir = "../img/profilUser/";
+        $target_file = $target_dir . basename($_FILES["iconLink"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
        /* $regExpName = "/^([a-zA-Z])/";
         $regExpPsuedo = "/^[A-Za-z0-9_- ]+$/";
         $regExpMail = "/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
@@ -33,6 +36,7 @@ idCountry $_SESSION['idCountry'] = $_POST['idCountry'];
         //session_start();
         if($user->firstName == "" /* && !preg_match($regExpName, $user->firstName )*/){
             $result["user.firstName"] = 'need a firsname or should not contain numéric char';
+            var_dump(  $result["user.firstName"]);
            /* $_SESSION['lastName'] = $_POST['lastName'];
             $_SESSION['pseudo'] = $_POST['pseudo'];
             $_SESSION['password'] = $_POST['password'];
@@ -111,61 +115,35 @@ idCountry $_SESSION['idCountry'] = $_POST['idCountry'];
             $_SESSION['mail'] = $_POST['mail'];
             $_SESSION['entreprise'] = $_POST['entreprise'];*/
         }
-        if(!empty($_POST["iconLink"])){
-            $target_dir = "../img/profilUser/";
-            $target_file = $target_dir . basename($_FILES["iconLink"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
 // Check if image file is a actual image or fake image
             if(file_exists($target_file)) {
                 $check = getimagesize($_FILES["iconLink"]["tmp_name"]);
                 if($check !== false) {
                     $result["user.iconLink"] = "File is an image - " . $check["mime"] . ".";
-                    $uploadOk = 1;
-                } else {
+                } else
                     $result["user.iconLink"] =  "File is not an image.";
-                    $uploadOk = 0;
                 }
-            }
+
 // Check if file already exists
             if (file_exists($target_file)) {
                 $result["user.iconLink"] =  "Sorry, file already exists.";
-                $uploadOk = 0;
             }
 // Check file size
             if ($_FILES["iconLink"]["size"] > 500000) {
                 $result["user.iconLink"] = "Sorry, your file is too large.";
-                $uploadOk = 0;
             }
 // Allow certain file formats
             if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                 && $imageFileType != "gif" ) {
                 $result["user.iconLink"] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                $uploadOk = 0;
             }
 // Check if $uploadOk is set to 0 by an error
-            if ($uploadOk == 0) {
+            if (!empty($result["user.iconLink"])) {
                 $result["user.iconLink"] =  "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
-            } else {
-                if (move_uploaded_file($_FILES["iconLink"]["tmp_name"], $target_file)) {
-                    $_POST["iconLink"]= $_FILES["iconLink"]["name"] ;
-                } else {
-                    $result["user.iconLink"] =  "Sorry, there was an error uploading your file.";
-                }
             }
 
-           /* $_SESSION['firstName'] = $_POST['firstName'];
-            $_SESSION['lastName'] = $_POST['lastName'];
-            $_SESSION['pseudo'] = $_POST['pseudo'];
-            $_SESSION['password'] = $_POST['password'];
-            $_SESSION['description'] = $_POST['description'];
-            $_SESSION['mail'] = $_POST['mail'];
-            $_SESSION['entreprise'] = $_POST['entreprise'];
-            $_SESSION['idCountry'] = $_POST['idCountry'];*/
-
-
-        }
         return $result;
     }
 }
