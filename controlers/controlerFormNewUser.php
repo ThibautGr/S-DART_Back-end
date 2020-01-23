@@ -20,10 +20,9 @@ use DAO\DAOcountry;
 use service\checkNewUser;
 use DAO\DAOusers;
 use Domain\User;
-require "../view/templateHeader.php";
-$confing = require "../init/config.inc";
 
-$validationError = [];
+
+$confing = require "../init/config.inc";
 
 $checkNewUser = new checkNewUser();
 $DAOartType = new DAOartType($confing);
@@ -31,9 +30,8 @@ $DAOcountry = new DAOcountry($confing);
 $DAOuser = new DAOusers($confing);
 $typeArts = $DAOartType->getArtType();
 $countrys = $DAOcountry->getCountry();
-require "../view/pageInscription.php";
-require "../view/templateFooter.php";
 
+$validationError = [];
 $firstName ="";
 $lastName ="";
 $pseudo = "";
@@ -52,26 +50,44 @@ if(!empty($_POST)){
     $firstName = $_POST["firstName"];
     $lastName =$_POST["lastName"];
     $pseudo = $_POST["pseudo"];
-    $iconLink =$_POST["iconLink"];
+    $iconLink =$_FILES["iconLink"];
     $password = $_POST["password"];
     $description =$_POST["description"];
     $artPratice = $_POST["artPratice"];
     $levelAdminUser = $_POST["levelAdminUser"];
     $mail = $_POST["mail"];
     $entreprise = $_POST["entreprise"];
-   // $createdAt= $_POST["createdAt"];
+   //$createdAt= time();
     $idCountry = $_POST["idCountry"];
-    $user = new User(null, $firstName, $lastName, $pseudo, $iconLink, $password, $description, $artPratice,$levelAdminUser ,$mail ,$entreprise,null ,$idCountry);
+    $user = new User(null, $firstName, $lastName, $pseudo, $iconLink, $password, $description, $artPratice,$levelAdminUser ,$mail ,$entreprise,null, $idCountry);
 
     $validationError = $checkNewUser->isValidUser($user);
+;   var_dump($validationError);
     if (empty($validationError)){
-        $DAOuser->insertUser($user);
-        $id = $DAOuser;
-        session_destroy();
-        $DAOuser->close();
-        header("Location: validation.php?=id") ;
+        $target_dir = "../img/profilUser/";
+        $target_file = $target_dir . basename($_FILES["iconLink"]["name"]);
+
+        if (move_uploaded_file($user->iconLink["tmp_name"], $target_file)) {
+
+            $user->iconLink = $user->iconLink["name"];
+
+            if(count($user->artPratice) == 1){
+                 $user->artPratice = implode($user->artPratice);
+                $user->artPratice = intval($user->artPratice);
+                $user->levelAdminUser = intval($user->levelAdminUser);
+                $user->idCountry = intval($user->idCountry);
+
+                $DAOuser->insertUser($user);
+                session_destroy();
+                $DAOuser->close();
+                header("Location: controlerUserConect.php") ;
+            }
+        }
     }
-    var_dump($validationError);
 }
+require "../view/templateHeader.php";
+
+require "../view/pageInscription.php";
+require "../view/templateFooter.php";
 
 
