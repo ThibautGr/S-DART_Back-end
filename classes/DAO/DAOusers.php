@@ -2,7 +2,7 @@
 
 
 namespace DAO;
-use domain\User;
+use Domain\User;
 
 class DAOusers extends DAObase
 {
@@ -13,9 +13,9 @@ class DAOusers extends DAObase
 
     public function getUserConected($pseudo, $password){
         $user = null;
-        $req = $this->bdd->prepare("SELECT `idUser`,`firstName`,`lastName`,`pseudo`,`password`,`description`,`artPratice`,`levelAdminUser`,`mail`,`entreprise`,`createdAt`,`idCountry` 
+        $req = $this->bdd->prepare("SELECT idUser,firstName,lastName,pseudo,iconLink,password,description,artPratice,levelAdminUser,mail,entreprise,createdAt,idCountry 
                                               FROM `users` 
-                                              WHERE `pseudo` = :pseudo and `password` = :password");
+                                              WHERE pseudo=:pseudo and password=:password");
         $req->bindParam(":pseudo",$pseudo);
         $req->bindParam(":password",$password);
         if($req->execute()){
@@ -25,6 +25,7 @@ class DAOusers extends DAObase
                     $userDataConnect["firstName"],
                     $userDataConnect["lastName"],
                     $userDataConnect["pseudo"],
+                    $userDataConnect["iconLink"],
                     $userDataConnect["password"],
                     $userDataConnect["description"],
                     $userDataConnect["artPratice"],
