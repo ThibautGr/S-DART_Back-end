@@ -85,9 +85,8 @@ if(!empty($_POST)){
         }
     }
 }
-require "../view/templateHeader.php";
 
 require "../view/pageInscription.php";
-require "../view/templateFooter.php";
+
 
 
