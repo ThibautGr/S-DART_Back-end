@@ -29,25 +29,17 @@
         <input class="form-control col-5" type="text" placeholder="Search" aria-label="Search">
         <!---------------------------------->
         <!-- boutique, connextion, inscription-->
-        <div class="col-3 esapce">
-            <div id="hAsConnecterUno">
-                <a title="" class="hideAndShowMyShop " href="#"> <i class="fas fa-shopping-cart undeco"> (0)</i></a>
-                <a title="s'inscrire"  href="controlerFormNewUser.php" class=" hideAndShowSinscrire" >S'inscire</a>
-                <a title="" href="#" class="  btn btn-primary"  data-toggle="modal" data-target=".bd-connextion-modal-sm"> <i class="fas fa-sign-in-alt"></i>Ce connecter</a>
-            </div>
-            <div id="hAsConnecter" class="d-none row rowconnecter">
+
                 <!--écran vous etes connecter-->
                 <!--menu backDOWN profil-->
-                <a title="" class="hideAndShowMyShop " href="#"> <i class="fas fa-shopping-cart undeco"> (0)</i></a>
-
-                <div class="dropdown">
-                    <a  class=" undeco dropdown-toggle" id="dropdownMenuCo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"> Heagle Row <img class=" logoConnecter" src="img/profil/profil.jpg"></a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuCo">
-                        <a id="" class=" dropdown-item" href="#">Mes message(s) (0)</a>
-                        <a id="" class=" dropdown-item" href="#">mon profile</a>
-                        <a id="DeConnextionShow" class=" dropdown-item" href="#">Ce deconnecter</a>
-                    </div>
-                </div>
+                <?php
+                    if(!empty($_SESSION["pseudo"]) && !empty($_SESSION["password"])){
+                        require "../view/userConnected.php";
+                    }
+                    else{
+                        require "../view/userUnconnected.php";
+                    }
+                ?>
                 <!--écran vous etes connecter-->
             </div>
         </div>
@@ -56,16 +48,16 @@
     <div class="modal fade bd-connextion-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <form class="formConnextion">
+                <form method="post" action="controlerUserConect.php" class="formConnextion">
                     <div class="form-group ">
                         <label for="formGroupExampleInput">votre Identifiant</label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="identifiant ou mail">
+                        <input name="pseudo" type="text" class="form-control" id="formGroupExampleInput" placeholder="identifiant ou mail">
                     </div>
                     <div class="form-group">
                         <label  for="hAsConnecteur">votre mots de passe</label>
                         <!---zone de dev-->
                         <div class="input-group">
-                            <input type="password" class=" form-control" id="hAsConnecteur" placeholder="votre mots de passe">
+                            <input name="password" type="password" class=" form-control" id="hAsConnecteur" placeholder="votre mots de passe">
                         </div>
                         <!--zon de dev-->
                     </div>
