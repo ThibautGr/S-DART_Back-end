@@ -2,6 +2,15 @@
 require "../init/autoloader.php";
 use DAO\DAOusers;
 use service\checkNewUser;
+
+//call for 3link of header
+    use DAO\DAOartType;
+    use DAO\DAOart;
+    $confing = require "../init/config.inc";
+    $daoArtType = new DAOartType($confing);
+    $daoArtTypes = $daoArtType->getArtType();
+//call for 3link of header
+
 $confing = require "../init/config.inc";
 $DAOuser = new DAOusers($confing);
 session_start();

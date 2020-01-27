@@ -20,7 +20,11 @@ use DAO\DAOcountry;
 use service\checkNewUser;
 use DAO\DAOusers;
 use Domain\User;
-
+//call for 3link of header
+    $confing = require "../init/config.inc";
+    $daoArtType = new DAOartType($confing);
+    $daoArtTypes = $daoArtType->getArtType();
+//call for 3link of header
 
 $confing = require "../init/config.inc";
 

@@ -5,7 +5,13 @@ $confing = require "../init/config.inc";
 $DAOuser = new DAOusers($confing);
 $pseudo ="";
 $password="";
-session_destroy();
+//call for 3link of header
+use DAO\DAOartType;
+use DAO\DAOart;
+$confing = require "../init/config.inc";
+$daoArtType = new DAOartType($confing);
+$daoArtTypes = $daoArtType->getArtType();
+//call for 3link of header
 if(!empty($_POST)){
     $password = $_POST["password"];
     $pseudo = $_POST["pseudo"];
@@ -19,6 +25,7 @@ if(!empty($_POST)){
     $_SESSION["pseudo"] =    $user->pseudo;
     $_SESSION["password"] =    $user->password;
     $_SESSION["idCountry"] =    $user->idCountry;
+    $_SESSION["artPratice"] = $user->artPratice;
     $_SESSION["levelAdminUser"] =   $user->levelAdminUser;
     $_SESSION["iconLink"] =  $user->iconLink;
     $_SESSION["createdAt"] =   $user->createdAt;
@@ -26,6 +33,7 @@ if(!empty($_POST)){
     $_SESSION["description"] =  $user->description;
     //var_dump($_SESSION);
   //  require "../view/userConnected.php";
+
 }
 
 
