@@ -66,4 +66,51 @@ public function insertUser($user){
     }
 }
 
+public function updateUser($user){
+    $req = $this->bdd->prepare("UPDATE users SET firstName = :firstName, lastName = :lastName, pseudo =:pseudo,iconLink = :iconLink ,password = :password, description = :description ,artPratice = :artPratice,levelAdminUser = :levelAdminUser WHERE isUser  = :id");
+    $req->bindParam(":id" ,$user->idUser);
+    $req->bindParam(":firstName", $user->firstName);
+    $req->bindParam(":lastName", $user->lastName);
+    $req->bindParam(":pseudo", $user->pseudo);
+    $req->bindParam(":iconLink", $user->iconLink);
+    $req->bindParam(":password", $user->password);
+    $req->bindParam("artPratice", $user->artPratice);
+    $req->bindParam("levelAdminUser", $user->levelAdminUser);
+    if ($req->execute()){
+        echo 'MAJ user success';
+    }
+    else{
+        echo "FAIL update";
+    }
+    }
+
+    public function getUserById($id){
+        $user = null;
+        $req = $this->bdd->prepare("SELECT idUser,firstName,lastName,pseudo,iconLink,password,description,artPratice,levelAdminUser,mail,entreprise,createdAt,idCountry 
+                                              FROM `users` 
+                                              WHERE idUser = :id ");
+        $req->bindParam(":id",$id);
+        if($req->execute()){
+            if($userDataConnect = $req->fetch()){
+                $user = new User(
+                    $userDataConnect["idUser"],
+                    $userDataConnect["firstName"],
+                    $userDataConnect["lastName"],
+                    $userDataConnect["pseudo"],
+                    $userDataConnect["iconLink"],
+                    $userDataConnect["password"],
+                    $userDataConnect["description"],
+                    $userDataConnect["artPratice"],
+                    $userDataConnect["levelAdminUser"],
+                    $userDataConnect["mail"],
+                    $userDataConnect["entreprise"],
+                    $userDataConnect["createdAt"],
+                    $userDataConnect["idCountry"]
+                );
+            }
+        }
+        $req->closeCursor();
+        return $user;
+    }
+
 }
