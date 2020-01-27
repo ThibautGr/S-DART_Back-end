@@ -26,4 +26,24 @@ class DAOartType extends DAObase
 
        return $result;
     }
+
+    public function getTitlByid($id){
+
+        $titleArt = null;
+        $req = $this->bdd->prepare("SELECT idTypeArt, name FROM typeArt where idTypeArt = :id");
+        $req->bindParam(":id", $id);
+        if ($req->execute()){
+            if($data = $req->fetch()){
+            $titleArt = new TypeArt($data["idTypeArt"],
+                                    $data["name"]);
+
+            }
+
+        }
+        $req->closeCursor();
+        return $titleArt;
+
+
+    }
+
 }
