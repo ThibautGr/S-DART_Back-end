@@ -1,9 +1,11 @@
+drop table if exists `users`;
 CREATE TABLE `users` (
   `idUser` int PRIMARY KEY AUTO_INCREMENT,
   `firstName` varchar(50),
   `lastName` varchar(50),
   `pseudo` varchar(50),
-  `password` password,
+  `inconLink`varchar (150),
+  `password` varchar(50),
   `description` text,
   `artPratice` int,
   `levelAdminUser` int(1),
