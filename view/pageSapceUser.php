@@ -11,7 +11,9 @@ ob_start();
     <p><?php echo $_SESSION["levelAdminUser"]?></p>
     <p><?php echo $_SESSION["artPratice"]?></p>
     <p><?php echo $_SESSION["mail"]?></p>
+<?php if(!empty($_SESSION["entreprise"])){ ?>
     <p><?php echo $_SESSION["entreprise"]?></p>
+<?php }?>
     <p><?php echo $_SESSION["idCountry"]?></p>
 <?php
 $content = ob_get_clean();
