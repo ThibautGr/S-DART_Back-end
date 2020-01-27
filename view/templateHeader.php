@@ -76,9 +76,13 @@
         <div class="dropdown col-2">
             <a  href="#" class="btn btn-secondary dropdown-toggle  artChangeur" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > Arts</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a id="" class="hideAndShowpageArtGraphique dropdown-item" href="#">graphique</a>
-                <a id="" class="hideAndShowArtdigital dropdown-item" href="#">digital</a>
-                <a id="" class="hideAndShowArt3D dropdown-item" href="#">3D</a>
+            <?php
+            foreach ($daoArtTypes as $arttypeName){
+            ?>
+                <a class="dropdown-item" href="controlerPageArtByArtId.php?id=<?php echo $arttypeName->idTypeArt ?>"><?php echo $arttypeName->name ?></a>
+            <?php
+            }
+            ?>
             </div>
         </div>
         <a class=" col-2" title="retour vers accueil" href="#"> Job</a>
