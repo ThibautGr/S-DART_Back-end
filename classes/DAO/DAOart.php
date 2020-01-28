@@ -26,11 +26,31 @@ class DAOart extends DAObase
                     $data["idUser"],
                     $data["createdAt"]
                 );
-                var_dump($art);
                 $allArt[] = $art;
             }
         }
         $req->closeCursor();
         return $allArt;
+    }
+    public function getOneArtById($id){
+        $art = null ;
+
+        $req = $this->bdd->prepare("SELECT idArt,idTypeArt,title,description,linkImg,idUser,createdAt FROM art WHERE idArt = :idArt");
+        $req->bindParam(":idArt", $id);
+        if($req->execute()){
+            while ($data = $req->fetch()) {
+                $art = new Art(
+                    $data["idArt"],
+                    $data["idTypeArt"],
+                    $data["title"],
+                    $data["description"],
+                    $data["linkImg"],
+                    $data["idUser"],
+                    $data["createdAt"]
+                );
+            }
+        }
+        $req->closeCursor();
+        return $art;
     }
 }
