@@ -46,4 +46,23 @@ class DAOartType extends DAObase
 
     }
 
+    public function getNameOfArtByOneArtId($id){
+        $nameofArt = null;
+        $req = $this->bdd->prepare("SELECT name FROM typeArt
+                                    INNER JOIN art ON typeArt.idTypeArt = art.idTypeArt
+                                    WHERE art.idTypeArt = :id");
+        $req->bindParam(":id" , $id);
+        if ($req->execute()){
+            if($data = $req->fetch()){
+                $nameofArt = new TypeArt($data["idTypeArt"],
+                    $data["name"]);
+
+            }
+        }
+        $req->closeCursor();
+        return $nameofArt;
+    }
+
+
+
 }
