@@ -9,4 +9,10 @@ $confing = require "../init/config.inc";
 $daoArtType = new DAOartType($confing);
 
 $daoArtTypes = $daoArtType->getArtType();
+$daoart = new DAOart($confing);
+$id= $_SESSION["idUser"];
+$allart = $daoart->getAllArtByArtistId($id);
+$id = $_SESSION["artPratice"];
+$nameOfArt = $daoArtType->getNameOfArtByOneArtId($id);
+
 require "../view/pageSapceUser.php";
