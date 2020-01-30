@@ -70,15 +70,20 @@ class DAOusers extends DAObase
 
     public function updateUser($user)
     {
-        $req = $this->bdd->prepare("UPDATE users SET firstName = :firstName, lastName = :lastName, pseudo =:pseudo,iconLink = :iconLink ,password = :password, description = :description ,artPratice = :artPratice,levelAdminUser = :levelAdminUser WHERE isUser  = :id");
+        $req = $this->bdd->prepare("UPDATE users SET firstName = :firstName, lastName = :lastName, pseudo = :pseudo,iconLink = :iconLink ,password = :password, description = :description ,artPratice = :artPratice,levelAdminUser = :levelAdminUser, mail = :mail, entreprise = :entreprise, createdAt = :createdAt, idCountry = :idCountry  WHERE idUser  = :id");
         $req->bindParam(":id", $user->idUser);
         $req->bindParam(":firstName", $user->firstName);
         $req->bindParam(":lastName", $user->lastName);
         $req->bindParam(":pseudo", $user->pseudo);
         $req->bindParam(":iconLink", $user->iconLink);
         $req->bindParam(":password", $user->password);
+        $req->bindParam("description",$user->description);
         $req->bindParam("artPratice", $user->artPratice);
         $req->bindParam("levelAdminUser", $user->levelAdminUser);
+        $req->bindParam('mail', $user->mail);
+        $req->bindParam("entreprise", $user->entreprise);
+        $req->bindParam("createdAt",$user->createdAt);
+        $req->bindParam("idCountry", $user->idCountry);
         if ($req->execute()) {
             echo 'MAJ user success';
         } else {
