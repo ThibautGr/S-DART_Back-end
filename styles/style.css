@@ -404,6 +404,9 @@ border-right: none;
     border:  none;
     border-left: #ffffff 2px solid;
 }
+.bgGreyColor{
+    background-color: #171717;
+}
 .modif-card{
     background-color: #171717;
     padding:  0 3rem 5rem 3rem;

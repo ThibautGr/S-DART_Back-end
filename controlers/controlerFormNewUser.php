@@ -76,7 +76,7 @@ if(!empty($_POST)){
             $user->iconLink = $user->iconLink["name"];
 
             if(count($user->artPratice) == 1){
-                 $user->artPratice = implode($user->artPratice);
+                $user->artPratice = implode($user->artPratice);
                 $user->artPratice = intval($user->artPratice);
                 $user->levelAdminUser = intval($user->levelAdminUser);
                 $user->idCountry = intval($user->idCountry);

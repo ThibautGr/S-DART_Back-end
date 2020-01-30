@@ -23,7 +23,6 @@ if (!empty($_GET)){
     $id = $_GET["id"];
     $idArt = $daoart->getArtByArt($id);
     $artTitlePage = $daoArtType->getTitlByid($id);
-
     require "../view/templateArt.php";
 }
 
