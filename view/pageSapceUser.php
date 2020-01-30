@@ -1,27 +1,185 @@
 <?php
 ob_start();
-?>  <div class="text-center">
+var_dump($_SESSION["entreprise"]);
+?>
+
+    <div class="row rowinscription justify-content-center">
+    <div class="text-center">
             <h1><?php echo $_SESSION["pseudo"]?></h1>
             <img alt="poulet" class="imgProfile" src="../img/profilUser/<?php echo $_SESSION["iconLink"]?>">
-            <p>Firstname : <?php echo $_SESSION["firstName"] ?></p>
-            <p>Lastname : <?php echo $_SESSION["lastName"] ?></p>
-            <p>Pseudo : <?php echo $_SESSION["pseudo"] ?></p>
-            <p>Password : <?php echo $_SESSION["password"] ?></p>
-            <p>Description: <?php echo $_SESSION["description"]?></p>
-            <p>Level of adminstration(in dev) : <?php echo $_SESSION["levelAdminUser"]?></p>
-            <p>Art Pratice :<?php echo $_SESSION["artPratice"]?></p>
-            <p>Mail : <?php echo $_SESSION["mail"]?></p>
+            <p ><strong>Firstname :</strong> <?php echo $_SESSION["firstName"] ?></p>
+            <p><strong>Lastname :</strong> <?php echo $_SESSION["lastName"] ?></p>
+            <p><strong>Pseudo : </strong><?php echo $_SESSION["pseudo"] ?></p>
+            <p><strong>Password :</strong> <?php echo $_SESSION["password"] ?></p>
+            <p><strong>Description: </strong><?php echo $_SESSION["description"]?></p>
+            <p><strong>Level of adminstration(in dev) : </strong><?php echo $_SESSION["levelAdminUser"]?></p>
+            <p><strong>Art Pratice :</strong><?php echo $_SESSION["artPratice"]?></p>
+            <p><strong>Mail : </strong><?php echo $_SESSION["mail"]?></p>
         <?php if(!empty($_SESSION["entreprise"])){ ?>
-            <p>Entreprise :<?php echo $_SESSION["entreprise"]?></p>
+            <p><strong>Entreprise :</strong><?php echo $_SESSION["entreprise"]?></p>
         <?php }?>
-            <p>country : (in dev)<?php echo $_SESSION["idCountry"]?></p>
-        <div class="p-3">
-            <a class="btn-price " href="controlerUpdateUser.php">Update your profil ! </a>
-        </div>
+            <p><strong>country : (in dev)</strong><?php echo $_SESSION["idCountry"]?></p>
+
+    </div>
+        <form  action="controlerUpdateUser.php" method="post" enctype="multipart/form-data" class=" col-log p-5 m-3">
+            <h2 class="text-center">Update your profil : </h2>
+            <?php
+            if(!empty($validationError["user.firstName"])){
+                ?>
+                <div id="errorfirstName" class="col-md-12 alert alert-danger form-control alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                    <strong>
+                        <?php echo $validationError["user.firstName"]; ?>
+                    </strong>
+                    <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-window-close"></i>
+                    </button>
+                </div>
+            <?php } ?>
+            <?php if(!empty($validationError["user.lastName"])){
+                ?>
+                <div  class="col-md-12 alert alert-danger form-control alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                    <strong>
+                        <?php echo $validationError["user.lastName"]; ?>
+                    </strong>
+                    <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-window-close"></i>
+                    </button>
+                </div>
+            <?php } ?>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="firstName">firstName</label>
+                    <input type="text" value="<?php echo $_SESSION['firstName'];?>" class="form-control" id="firstName" placeholder="firstName" name="firstName">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lastName">lastName</label>
+                    <input type="lastName"value="<?php echo $_SESSION['lastName'];?>" class="form-control" id="lastName" placeholder="lastName" name="lastName">
+                </div>
+            </div>
+            <?php if(!empty($validationError["user.pseudo"])){
+                ?>
+                <div class="col-md-12 alert alert-danger form-control alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                    <strong>
+                        <?php echo $validationError["user.pseudo"]; ?>
+                    </strong>
+                    <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-window-close"></i>
+                    </button>
+                </div>
+            <?php } ?>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="pseudo">pseudo</label>
+                    <input type="text" value="<?php echo $_SESSION['pseudo'];?>" class="form-control" id="pseudo" placeholder="pseudo" name="pseudo">
+            </div>
+                <div class="form-group  col-md-6">
+
+                    <div class="custom-file ">
+                        <input type="hidden">
+                    </div>
+                </div>
+            </div>
+            <?php if(!empty($validationError["user.description"])){
+                ?>
+                <div  class="col-md-12 alert alert-danger form-control alert-dismissible fade show" role="alert">
+
+                    <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                    <strong>
+                        <?php echo $validationError["user.description"]; ?>
+                    </strong>
+                    <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-window-close"></i>
+                    </button>
+                </div>
+            <?php } ?>
+            <div class="form-group">
+                <label for="inputAddress">description</label>
+                <textarea name="description" class="form-control"  id="inputAddress" rows="3" placeholder="Fiew word about you..."><?php echo $_SESSION['description'];?></textarea>
+            </div>
+
+                <?php if(!empty($validationError["user.mail"])){
+                    ?>
+                    <div class="col-md-12 alert alert-danger form-control alert-dismissible fade show" role="alert">
+
+                        <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                        <strong>
+                            <?php echo $validationError["user.mail"]; ?>
+                        </strong>
+                        <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-window-close"></i>
+                        </button>
+                    </div>
+                <?php } ?>
+                <div class="form-group">
+                    <label for="inputAddress">Email</label>
+                    <input type="text" class="form-control" id="inputAddress" value="<?php echo $_SESSION['mail'];?>"   placeholder="monmail@maboitemail.extentions" name="mail">
+                </div>
+                <!--on work-->
+                <?php if(!empty($validationError["user.password"])){
+                    ?>
+                    <div class="col-md-12 alert alert-danger form-control alert-dismissible fade show" role="alert">
+
+                        <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                        <strong>
+                            <?php echo $validationError["user.password"]; ?>
+                        </strong>
+                        <i class="fas fa-exclamation-circle" style="color: red;"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-window-close"></i>
+                        </button>
+                    </div>
+                <?php } ?>
+                <div class="form-group ">
+                    <label for="inputAddress2">Mots de passe: </label>
+                    <div class="row roweyes">
+                        <input id="passWord" type="password" class="col-10 form-control text-left" id="inputAddress2" value="<?php echo $_SESSION['password'];?>"  placeholder="password" name="password">
+                        <div class="btn-primary btn col-2"  onclick="passWordHAS()">
+                            <div id="eyes">
+                                <i  class="far fa-eye hideAndShowEyes"></i>
+                            </div>
+                            <div id="eyesBlink">
+                                <i class="far fa-eye-slash d-none hideAndShowEyesBlink"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- on work-->
+                <div class="form-group ">
+                    <label for="passWordConf">confirmation du Mots de passe: </label>
+                    <div class="row roweyes">
+                        <input id="passWordConf" type="password" class="col-10 form-control text-left" name="passwordtwo"  placeholder="password">
+                        <div class="col-2 btn-primary btn"  onclick="passWordHAS2()">
+                            <div id="eyes2">
+                                <i  class="far fa-eye hideAndShowEye2s"></i>
+                            </div>
+                            <div id="eyesBlink2">
+                                <i class="far fa-eye-slash d-none hideAndShowEyesBlink2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" value="submit" class="btn btn-primary">Make the Update !</button>
+        </form>
+    </div>
     </div>
 <?php
+
 echo "<h2 class='text-center'>your creation</h2>";
 echo "  <div class='card-deck'>";
+
 
 foreach ($allart as $art){
     ?>
@@ -39,6 +197,8 @@ foreach ($allart as $art){
 echo "</div>";
 $content = ob_get_clean();
 require('../view/templateClassiquePage.php');
+
+
 
 /*
 
