@@ -53,4 +53,26 @@ class DAOart extends DAObase
         $req->closeCursor();
         return $art;
     }
+    public function getAllArtByArtistId($id){
+        $art = null ;
+        $allArt = [];
+        $req = $this->bdd->prepare("SELECT idArt,idTypeArt,title,description,linkImg,idUser,createdAt FROM art WHERE idUser = :idUser");
+        $req->bindParam(":idUser", $id);
+        if($req->execute()){
+            while ($data = $req->fetch()) {
+                $art = new Art(
+                    $data["idArt"],
+                    $data["idTypeArt"],
+                    $data["title"],
+                    $data["description"],
+                    $data["linkImg"],
+                    $data["idUser"],
+                    $data["createdAt"]
+                );
+                $allArt[] = $art;
+            }
+        }
+        $req->closeCursor();
+        return $allArt;
+    }
 }
